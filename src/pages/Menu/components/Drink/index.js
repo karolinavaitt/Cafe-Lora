@@ -1,15 +1,15 @@
 import "./style.css";
-import { Layer } from "../Layer";
+import { Layer } from "../Layer/index.js";
 
 export const Drink = (props) => {
   const { id, name, ordered, image, layers } = props;
   const element = document.createElement("div");
   element.classList.add("drink");
+
   element.innerHTML = `
- 
-  <div class="drink__product">
+   <div class="drink__product">
     <div class="drink__cup">
-      <img src="https://cafelora.kodim.app/assets/cups/espresso.png">
+      <img src=${image}>
     </div>
     <div class="drink__info">
       <h3>${name}</h3>
@@ -21,5 +21,16 @@ export const Drink = (props) => {
     </button>
   </div>
 `;
+
+  element
+    .querySelector(".drink__info")
+    .append(
+      ...layers.map((layer) =>
+        Layer({ color: layer.color, label: layer.label })
+      )
+    );
+
+ 
+
   return element;
 };
